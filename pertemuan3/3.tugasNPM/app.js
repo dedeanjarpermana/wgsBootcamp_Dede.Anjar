@@ -1,10 +1,6 @@
-
-
-
 const { RSA_X931_PADDING } = require('constants');
 const readline = require('readline');
 const validator = require('validator')
-
 const rl =readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -21,13 +17,11 @@ rl.question("what is your name:?", (name) => {
                     console.log(`your email address is: ${email}`)
                     rl.close()
                 }
-            
-                
-            
                 else{
                     console.log("Your email is not correct!")
                     rl.close()
                 }
+
             })
         }
         else{

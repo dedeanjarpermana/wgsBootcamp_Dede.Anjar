@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "nodemon": "^2.0.15",
     "validator": "^13.7.0"
   },
   "name": "3.tugasnpm",
@@ -13,5 +12,8 @@
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
 }
