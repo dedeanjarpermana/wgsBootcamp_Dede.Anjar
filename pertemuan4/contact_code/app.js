@@ -59,9 +59,9 @@
 const contacts  = require ('./contacts');
 
 const main = async() => {
-    const name = await contacts.questions("what is your name?");
-    const email = await contacts.questions("your email address");
-    const mobile = await contacts.questions('what is your number');
+    const name = await contacts.questions("what is your name? : ");
+    const email = await contacts.questions("your email address? : ");
+    const mobile = await contacts.questions('what is your number? :');
 
     contacts.saveContact(name, email,mobile)
 }
