@@ -30,6 +30,8 @@ if (!fs.existsSync(dataPath)){
 }
 
 
+
+
 const saveContact = (name, email, mobile) => {
     
     const contact = {name, email, mobile};
@@ -46,7 +48,7 @@ const saveContact = (name, email, mobile) => {
     }
     
 
-    if(!validator.isMobilePhone(mobile)){
+    if(!validator.isMobilePhone(mobile,'id-ID')){
         console.log("format hape anda salah!")
         return false
     }
@@ -60,4 +62,9 @@ const saveContact = (name, email, mobile) => {
 
 }
 
-module.exports = {saveContact};
+
+
+module.exports = {
+    saveContact,
+    
+};

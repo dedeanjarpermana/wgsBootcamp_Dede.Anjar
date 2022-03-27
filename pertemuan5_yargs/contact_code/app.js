@@ -5,6 +5,7 @@ const yargs = require('yargs');
 
 //console.log(yargs.argv);
 yargs.command({
+    
     command:'add',
     describe: 'add new contact',
     builder:{ 
