@@ -43,7 +43,7 @@ http.createServer((req,res)=>{
         //     }
         //     res.end();
         // }
-        panggilPage('contact.htmk',res)
+        panggilPage('contact.html',res)
     } else {
         // fs.readFile('./index.html',(err,data)=>{
         //     if(err){

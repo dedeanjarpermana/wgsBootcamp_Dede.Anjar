@@ -86,8 +86,6 @@ const details = (name) => {
     }
     else {
         console.log ("name is not found")
-        console.log("ini adalalh nama dari keyboar",name)
-        console.log("ini nama dari json",contactName.name)
     }
 
 };
@@ -98,16 +96,12 @@ const deleteContact =(name) =>{
     const newContact = all_contacts
     const listBaru = newContact.filter((newContact) => newContact.name !== name)
     if (newContact.length === listBaru.length){
-        console.log(`${name}data tidak ditemukan`)
+        console.log(`${name},  tidak ditemukan`)
         return false
     }
     fs.writeFileSync('data/contact.json', JSON.stringify(listBaru))
     console.log(`data ${name} successfully deleted`)
-        
-
     }
-
-
 
 module.exports = {
     saveContact,
