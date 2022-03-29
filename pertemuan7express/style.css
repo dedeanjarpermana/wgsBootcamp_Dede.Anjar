@@ -1,0 +1,10 @@
+h1{
+ font-display: arial;
+ font-size: 24pt;
+ color: aqua;
+}
+
+li {
+    padding: 12;
+    color: blue;
+}
