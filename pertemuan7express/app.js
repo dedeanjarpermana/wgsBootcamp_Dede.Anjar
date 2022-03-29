@@ -12,6 +12,8 @@ app.get('/about', (req, res)=>{
   res.sendFile('./about.html', {root:__dirname})
   //res.send('hellooo post about')
   console.log("test")
+  console.log("tugass")
+  console.log("test")
 })
 
 app.get('/contact', (req, res)=>{
