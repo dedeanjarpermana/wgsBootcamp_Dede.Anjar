@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IEedge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=title%> </title>
+    <link rel="stylesheet" href="./public/stylesheet/style.css">
+</head>
+<body>
+    <div id="1">
+        <h1> ini adalah halaman index. The index page consider to home page</h1>
+        <ul> 
+            <li> <a href="/"> Home</a></li>
+            <li> <a href="/about"> About </a></li>
+            <li> <a href="/contact"> Contact</a></li>
+        </ul>
+
+    </div>
+    
+    <h1> welcome to server node js </h1>
+    <p> welcome to my page <%=siswa%></p>
+    <p> contact list of </p> 
+    <ul>
+        <% for (var i = 0; i < cont.length; i++) { %>
+            <li> name: <%= cont[i].name%> </li>
+            <li> email: <%= cont[i].email %> </li>
+        <% } %>
+        
+    </ul>
+    
+    
+</body>
+</html>
