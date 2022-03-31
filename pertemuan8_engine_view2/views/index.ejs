@@ -22,11 +22,16 @@
     <p> welcome to my page <%=siswa%></p>
     <p> contact list of </p> 
     <ul>
+        <%if (cont.length < 1 ) { %>
+            <p> contact data is empy</p>
+        <% } else { %>
+
         <% for (var i = 0; i < cont.length; i++) { %>
             <li> name: <%= cont[i].name%> </li>
             <li> email: <%= cont[i].email %> </li>
             <br>
-        <% } %>
+        <% }%>
+        <% }%>
         
     </ul>
     

@@ -1,9 +1,11 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 5000
+let err_msg = '';
 
 // information using ejs
 app.set('view engine', 'ejs')
+
 
 
 app.get('/', (req, res) => {
@@ -23,10 +25,9 @@ app.get('/', (req, res) => {
     },
 
   ]
+const siswa = "ghazi array"
   
-  const siswa = "ghazi array"
-  res.render('index', {siswa, title:"pembelajan Node JS", cont})
-  //res.sendFile('./index.html', {root:__dirname}) // untuk express 
+  res.render('index', {siswa, title:"pembelajan Node JS", cont,  err_msg: err_msg })
 });
 
 app.get('/about', (req, res)=>{
@@ -34,7 +35,7 @@ app.get('/about', (req, res)=>{
   // res.sendFile('./about.html', {root:__dirname})
   //res.send('hellooo post about')
   
-})
+});
 
 
 
@@ -65,6 +66,8 @@ app.use('/', (req, res) => {
 // app.get('/contact', (req, res) => {
 //   res.send('welcome to my contact');
 // });
+
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
