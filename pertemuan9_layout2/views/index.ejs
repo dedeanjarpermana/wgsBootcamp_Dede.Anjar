@@ -1,0 +1,23 @@
+
+    <div id="1">
+        <h1> ini adalah halaman index. The index page consider to home page</h1>
+        
+
+    </div>
+    
+    <h1> welcome to server node js </h1>
+    <p> welcome to my page <%=siswa%></p>
+    <p> contact list of </p> 
+    <ul>
+        <%if (cont.length < 1 ) { %>
+            <p> contact data is empy</p>
+        <% } else { %>
+
+        <% for (var i = 0; i < cont.length; i++) { %>
+            <li> name: <%= cont[i].name%> </li>
+            <li> email: <%= cont[i].email %> </li>
+            <br>
+        <% }%>
+        <% }%>
+        
+    </ul>
