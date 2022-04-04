@@ -1,0 +1,25 @@
+<%- include('layout/header') %>
+<%- include('layout/nav') %>
+<div class="pageutama" style="width: 75%;">
+    <h2> ini adalah halaman index. The index page consider to home page</h1>
+    <h2> welcome to server node js </h1>
+    <p> welcome to my page <%=siswa%></p>
+    <div class="kotak"> <p> contact list of </p>  </div>
+
+    <ul>
+        
+        <%if (list_contact.length < 1 ) { %>
+            <p> contact data is empy</p>
+        <% } else { %>
+
+        <% for (var i = 0; i < list_contact.length; i++) { %>
+            <li> name: <%= list_contact[i].name%> </li>
+            <li> email: <%= list_contact[i].email %> </li>
+            <br>
+        <% }%>
+        <% }%>
+        
+    </ul>
+    
+</div>
+<%- include('layout/footer') %>
