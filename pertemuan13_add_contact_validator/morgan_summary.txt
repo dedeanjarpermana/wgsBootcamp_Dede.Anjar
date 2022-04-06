@@ -1,0 +1,15 @@
+morgan berfungsi untuk mencatat semua permintaan yang dilakukan user terhadap server (logger).
+GET /contact 304 3.839 ms - -
+:method :url :status :response-time ms - :res[content-length]
+Get : adalah method yang dilakukan oleh user untuk meminta request path untuk ditammpilkan
+/contact : adalah URL yang diminta oleh method GET
+304: adaalah status respon yang diberikan oleh server
+3.839 ms : adalah waktu respon yang diberikan oleh server untuk menangani sebuah request  dalam ms
+
+
+GET /kekdkreks 404 0.855 ms - 18
+
+ketika mengetikan suatu path yang tidak ada di dalam server, maka morgan akan menampilkan log seperti apa yang user inputkan, contoh user mengetikan kekekk, yang tidak ada di dalam menu web server. maka morgan akan menampilkannya kembali di terminal.
+304: adaalah status respon yang diberikan oleh server
+3.839 ms : adalah waktu respon yang diberikan oleh server untuk menangani sebuah request  dalam ms
+18 adalah content -length

@@ -1,0 +1,21 @@
+<%- include('layout/header') %>
+<%- include('layout/nav') %>
+
+
+<div class="card bg-1" style="width: 100px height:40px; margin: 10px 0; background-color: black; color:white">
+    <div class="card-body border border-2 shadow">
+      <h3 class="card-title" style="color:white"><%= list_contact.name%></h3> <br>
+      <h3 class="card-subtitle mb-2 text-white"><%= list_contact.email%></h3> <br>
+      
+      <h3 class="card-text" style="color:white"> <%= list_contact.mobile%></h3> <br>
+      
+      <a href="/contact" class="btn btn-outline-light" style= color:white" ">kembali ke Kontak </a>
+      
+    </div>
+</div>
+
+<<div class="pageutama" style="width: 100%;">
+
+</div>
+
+<%- include('layout/footer') %>
