@@ -22,10 +22,17 @@ app.set('view engine', 'ejs')
 app.use(morgan('dev'));
 app.use(express.static(__dirname + '/public'));
 
-app.use(flash())
-app.use(session)
-app.use(cookieParser)
 
+app.use(cookieParser('secret'))
+app.use(
+  session({
+    cookie : {maxAge : 6000},
+    secret : 'secret',
+    resave: true,
+    saveUninitialized : true
+  })
+)
+app.use(flash())
 app.use((req, res, next) => {
   console.log('time', Date.now())
   next()
