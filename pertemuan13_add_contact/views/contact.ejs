@@ -1,0 +1,37 @@
+<%- include('layout/header') %>
+<%- include('layout/nav') %>
+<div class="pageutama" style="width: 100%;">
+    <h2> Ini adalah halaman contact. Contact for this company through wa, email and instagram. </h1>
+    
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col"> No</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% var x=0 %> 
+                <% for (var i = 0; i < list_contact.length; i++) { %>
+            <tr>
+                <td><%= x = i+1%> </td>
+                <td><%= list_contact[i].name%></td>
+                <td><%= list_contact[i].email%></td>
+                <td>
+                    <a href="/contact/<%= list_contact[i].name %>" class="btn btn-outline-dark">Details</a> <!--page contact di web -->
+                    
+                </td>
+                
+            </tr>
+                <% }%>
+              
+            </tr>
+            <a href="/contact/add" class="btn btn-outline-dark">Add data</a> <!-- ke page contact/ add (add kontak)-->
+            </tbody>
+          </table>
+    
+</div>
+
+<%- include('layout/footer') %>

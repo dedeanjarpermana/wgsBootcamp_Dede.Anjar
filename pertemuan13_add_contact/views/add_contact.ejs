@@ -1,0 +1,29 @@
+<%- include('layout/header') %>
+<%- include('layout/nav') %>
+<form  class="container mt-3" style="width: 30%;" method="post" action="/contacts">
+    <div class="form-group">
+    Add Data
+    <br>Your Name:
+        <label for="exampleInputEmail1">Name </label>
+        <input type="text" class="form-control" id="name" name="name" aria-describedby="nama_anda" placeholder="Enter your name">
+      
+    </div>
+
+    <div class="form-group">
+    
+    Your Email:
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="email" name="email" aria-describedby="email_anda" placeholder="Enter your email">
+          
+    </div>
+
+    <div class="form-group">
+    Your Mobile:
+        <label for="exampleInputPassword1">mobile </label>
+        <input type="text" class="form-control" id="mobile" name="mobile" placeholder="isi no telpon">
+        <p><br> <button type="submit" class="btn btn-primary">Submit</button> </p>
+    </div>
+    
+    
+</form>
+<%- include('layout/footer') %>
