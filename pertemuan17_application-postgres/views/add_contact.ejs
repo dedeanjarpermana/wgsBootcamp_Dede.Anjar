@@ -1,0 +1,42 @@
+<%- include('layout/header') %>
+<%- include('layout/nav') %>
+
+<form  class="container mt-3" style="width: 30%;" method="post" action="/contact">
+    <div class="form-floating mb-3">
+    <h1> Form Add Data </h1>
+    
+    
+        <% if (typeof errors != 'undefined') { %>
+            <div class="alert alert-danger" role="alert">
+              <ul>
+                <% errors.forEach(error => { %>
+                   <li><%= error.msg %> </li>
+                <% }) %>
+              </ul>
+            </div>
+           <% } %>
+        
+    
+    <br><h5>Your Name:</h5>
+        <label for="exampleInputEmail1"></label>
+        <input type="text" class="form-control" id="name" name="name" aria-describedby="nama_anda" placeholder="Enter your name">
+    </div>
+
+    <div class="form-floating">
+        <h5>Your Mobile:</h5>
+            <label for="exampleInputPassword1"></label>
+            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="isi no telpon">
+            
+    </div>
+
+    <div class="form-floating">
+    <h5>Your Email:</h5>
+        <label for="exampleInputEmail1"></label>
+        <input type="email" class="form-control" id="email" name="email" aria-describedby="email_anda" placeholder="Enter your email">
+        <p><br> <button type="submit" class="btn btn-outline-dark">Submit</button> </p>
+    </div>
+    
+</form>
+
+
+<%- include('layout/footer') %>
