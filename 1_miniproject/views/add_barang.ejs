@@ -1,0 +1,51 @@
+<%- include('layout/header') %>
+
+
+<form  class="container mt-3" style="width: 30%;" method="post" action="/admin/tambah_barang">
+    <div class="form-floating mb-3">
+    <h1> Form Tambah Barang </h1>
+    
+    
+        <% if (typeof errors != 'undefined') { %>
+            <div class="alert alert-danger" role="alert">
+              <ul>
+                <% errors.forEach(error => { %>
+                   <li><%= error.msg %> </li>
+                <% }) %>
+              </ul>
+            </div>
+           <% } %>
+        
+    
+    <br><h3>ID Barang:</h3>
+        <label for="exampleInputEmail1"></label>
+        <input type="text" class="form-control" id="id_barang" name="id_barang" aria-describedby="id_barang" placeholder="Enter your ID Product">
+    </div>
+
+    <div class="form-floating">
+        <h5>Nama Barang:</h5>
+            <label for="exampleInputPassword1"></label>
+            <input type="text" class="form-control" id="nama_barang" name="nama_barang" placeholder="name of your product">
+    </div>
+
+    <div class="form-floating">
+    <h5>Jumlah Barang:</h5>
+        <label for="exampleInputEmail1"></label>
+        <input type="text" class="form-control" id="jumlah_barang" name="jumlah_barang" aria-describedby="jumlah_barang" placeholder="Quantity">
+    </div>
+    <h5>Harga Barang:</h5>
+        <label for="exampleInputEmail1"></label>
+        <input type="text" class="form-control" id="harga_barang" name="harga_barang" aria-describedby="harga_barang" placeholder="Price">
+    </div>
+    <h5>Photo:</h5>
+    <label for="exampleInputEmail1"></label>
+    <input type="file" class="form-control" id="photo" name="photot" aria-describedby="photo" placeholder="upload file jpg, jpeg">
+    </div>
+
+    
+        <p><br> <button type="submit" class="btn btn-outline-dark">Submit</button> </p>
+    </div>
+    <button type="button" class="btn btn-dark"><a href= "/admin_page"> Kembali Halaman Admin </a></button>
+</form>
+
+
