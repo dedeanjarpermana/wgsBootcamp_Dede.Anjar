@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express()
-const port = 3000
+const port = 3700
 const {pool} = require("./db")
 var session = require('express-session')
 var fs = require('fs')
@@ -16,11 +16,18 @@ const passport = require('passport')
 const fileUpload = require('express-fileupload')
 const initializePassport = require('./passportConfig')
 initializePassport(passport)
-var path = require('path') // morgan
+var path = require('path')
 app.set('view engine', 'ejs')
 const logger = require('express-log-psql'); // morgan to postgress
 app.use(express.urlencoded({extended :true}))
 require('dotenv').config()
+const multer = require("multer"); // buat aplod foto
+
+const upload = multer({ dest: 'uploads/' })
+
+
+
+
 
 var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' }) // morgan to file
 app.use(morgan('combined', { stream: accessLogStream }))
@@ -44,7 +51,7 @@ app.use(logger('tiny', {
   url: 'postgresql://dbuser:gadissuci25@localhost:5432/db_gudang',
   table: 'logs'
 }));
-
+// morgan to postgres
 app.get('/logs', (req, res) => {
   logger.retrieveDB({
       find: [],
@@ -53,15 +60,39 @@ app.get('/logs', (req, res) => {
       res.json(results);
   }).catch((err) => res.status(500).json(err));
 });
+
+app.get('/profile', (req,res) => {
+  res.render('profile.ejs')
+})
+// app.post('/profile', upload.single('avatar'), function (req, res, next) {
+//   // req.file is the `avatar` file
+//   // req.body will hold the text fields, if there were any
+// })
+
+// app.post('/photos/upload', upload.array('photos', 12), function (req, res, next) {
+//   // req.files is array of `photos` files
+//   // req.body will contain the text fields, if there were any
+// })
+
+// const cpUpload = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'gallery', maxCount: 8 }])
+// app.post('/cool-profile', cpUpload, function (req, res, next) {
+//   // req.files is an object (String -> Array) where fieldname is the key, and the value is array of files
+//   //
+//   // e.g.
+//   //  req.files['avatar'][0] -> File
+//   //  req.files['gallery'] -> Array
+//   //
+//   // req.body will contain the text fields, if there were any
+// })
+
+
+
 // halaman Home
-app.get('/',  (req, res) => {
+app.get('/', checkAuthenticated, (req, res) => {
   res.render('index.ejs', {title: "Index, Gate Utama masuk"})
 })
 
-//cheking home kalo ga di dalam session
-app.get('/',  checkNotAuthenticated, (req, res) => {
-  res.render('index.ejs', {title: "Index"})
-})
+
 // go to home page user
 app.get('/home',  (req, res) => {
   res.render('home.ejs', {title: "HOMEE"})
@@ -99,59 +130,39 @@ app.get('/login_admin', checkAuthenticated, (req, res) => {
 app.post("/login_admin",
   passport.authenticate("local", {
     successRedirect: "/admin_page",
-    failureRedirect: "/login/auth",
+    failureRedirect: "/login_admin",
     failureFlash: true
   })
 );
 // route to page tambah barang
-app.get('/admin/tambah_barang', (req,res) =>{
+app.get('/admin/tambah_barang',  (req,res) =>{
   res.render('add_barang.ejs', {title:'tambah barang'})
 })
 
 // proses tambah barang
 app.post('/admin/tambah_barang', async (req, res) => {
-  // let {id_barang, nama_barang, jumlah_barang, harga_barang, photo} = req.body
+  let {id_barang, nama_barang, jumlah_barang, harga_barang, photo} = req.body
   
   let errors = []
-  // if(!id_barang || !nama_barang || !jumlah_barang|| !harga_barang || !photo){
-  //    errors.push({message: "silahkan isi semua kolomnya"})
-  // }
-  if(req.method == "POST"){
-    var post  = req.body;
-    var id_barang = post.id_barang;
-    var nama_barang= post.nama_barang;
-    var jumlah_barang= post.jumlah_barang;
-    var harga_barang= post.harga_barang;
-
-  if (!req.files)
-      return res.status(400).send('No files were uploaded.');
-
-  var file = req.files.uploaded_image;
-  var photo=file.name;
-
-     if(file.mimetype == "image/jpeg" ||file.mimetype == "image/png"||file.mimetype == "image/gif" ){
-                               
-            file.mv('public/images/upload_images/'+file.name, function(err) {
-                           
-              if (err)
-
-                return res.status(500).send(err);
-              var sql = "INSERT INTO `tbl_barang`(`id_barang`,`nama_barang`,`jumlah_barang`,`harga_barang`, `photo`) VALUES ('" + id_barang + "','" + nama_barang + "','" + jumlah_barang + "','" + harga_barang + "','" + photo + "')";
-
-              var query = db.query(sql, function(err, result) {
-                 res.redirect('profile/'+result.insertId);
-              });
-           });
-        } else {
-          message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
-          res.render('index.ejs',{message: message});
-        }
- } else {
-    res.render('index');
- }
-
+  // pool.query(`INSERT INTO tb_barang (id_barang, nama_barang, jumlah_barang, harga_barang, photo) VALUES ('${id_barang}', '${nama_barang}', '${jumlah_barang}', '${harga_barang}', '${photo}')`, (err, results) => {
+  //   if (err) {
+  //     throw err;
+  //   }
+  //   console.log(results.rows);
+  //   req.flash("success_msg", "Data berhasil ditambah");
+  //   res.redirect('/admin/barang');
+  // });
+  console.log(id_barang, nama_barang, jumlah_barang, harga_barang)
+  if(!id_barang || !nama_barang || !jumlah_barang || !harga_barang){
+     errors.push({message: "silahkan isi semua kolomnya"})
     
-      
+  } else {
+    pool.query(`INSERT INTO tb_barang (id_barang, nama_barang, jumlah_barang, harga_barang) VALUES ('${id_barang}', '${nama_barang}', '${jumlah_barang}', '${harga_barang}')`, (err, results) => {  
+    //console.log(results.rows);
+    req.flash("success_msg", "Data berhasil ditambah");
+    res.redirect('/admin/barang');
+    });
+  } 
 })
 
 // route to page tambah user
@@ -185,8 +196,7 @@ app.post('/admin/tambah_user', async (req, res) => {
       if (err) {
         throw err;
       }
-      console.log('reachers here')
-      console.log(results.rows)
+      
       if (results.rows.length > 0) {
         return res.render("admin_register", {
           message: "Email already registered", title: 'proses register sudah digunakan'
@@ -216,7 +226,8 @@ app.get('/informasi_user', checkAuthenticated, async (req, res) => {
   try {
       const username = req.body
       const {rows : user } = await pool.query(`SELECT * FROM tb_user` )
-      
+      console.log(username)
+      console.log(user)
       res.render ('informasi_user.ejs', {
         title: 'informasi user', 
         user,
@@ -228,7 +239,7 @@ app.get('/informasi_user', checkAuthenticated, async (req, res) => {
   }
 })
 
-// memangggil view list dari database (assincronus)
+// memangggil view list dari database user
 app.get("/barang", checkAuthenticated, async (req, res) => {
   try {
     const {rows : barang } = await pool.query(`select * from tb_barang`)
@@ -260,6 +271,40 @@ app.get("/barang/:name", checkAuthenticated, async (req, res) => {
   }   
 })
 
+//detail barang admn
+// memangggil view list dari database user
+app.get("/admin/barang", checkAuthenticated, async (req, res) => {
+  try {
+    const {rows : barang } = await pool.query(`select * from tb_barang`)
+      res.render ('admin_barang.ejs', {
+          barang,
+          title: "data  semua barang ",
+          msg: req.flash('msg')   
+      })
+  }
+  catch (error){
+      console.error("salah")
+  }
+})
+
+app.get("/admin/barang/:name", checkAuthenticated, async (req, res) => {
+  try {
+    const name = (req.params.name)
+    const {rows : barang }  = await pool.query(`SELECT *  FROM tb_barang where id_barang = '${name}'`)
+    barang.map(
+      detailBarang => 
+      res.render('details_admin', {
+      title: "page detail data ", 
+      detailBarang
+      })
+      )
+  }
+  catch (error){
+      console.error("salah")
+  }   
+})
+
+
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return res.redirect("/");
@@ -278,7 +323,7 @@ function checkNotAuthenticated(req, res, next) {
 
 app.get("/logout", (req, res) => {
   req.logout();
-  res.render("login.ejs", { message: "You have logged out successfully" , title:"logout"});
+  res.render("index.ejs", { message: "You have logged out successfully" , title:"logout"});
 });
 
 

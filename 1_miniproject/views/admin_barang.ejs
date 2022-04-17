@@ -1,0 +1,46 @@
+<%- include('layout/header') %>
+
+<div class="pageutama" style="width: 100%;">
+    <h3> List Barang:  </h2>
+
+      <% if (msg.length !== 0) { %>
+        <div class="alert alert-info" role="alert">
+          <%= msg %> 
+        </div>
+      <% } %>      
+          <form  class="container mt-3" style="width: 30%;" method="post" action="/contact/deletemultiple">
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    
+                    <th scope="col"> No</th>
+                    <th scope="col">ID_Barang</th>
+                    <th scope="col">Nama Barang</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <% barang.forEach((barang,i)=> { (i++) %>
+                    <tr>
+                        
+                        <td> <%= i++ %> </td>
+                        <td> <%= barang.id_barang %> </td>
+                        <td> <%= barang.nama_barang %> </td>
+                      
+                        <td>
+                          <a href="/admin/barang/<%= barang.id_barang %>" class="btn btn-outline-dark">Details</a> <!--page contact di web -->
+                      </td>
+                    </tr>
+                </tr>
+        <%}); %> 
+            </tr>
+            
+           
+            
+          </form>
+            </tbody>
+          </table>
+    
+</div>
+
+<%- include('layout/footer') %>

@@ -24,6 +24,9 @@ body{
     margin-left: 10px;  
     height: auto;
     margin-bottom: 5px;
+    margin-top: 20px;
+    margin-right: 20px;
+    width: 90%;
 }
 label {
     float: right;
@@ -130,4 +133,18 @@ h1{
     background-size: cover;
     background-repeat: no-repeat;
     position: absolute;
+}
+
+/* detail barang */
+.card bg-1 {
+    position: sticky;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    margin: 0 auto;
+    text-align: center;
 }
