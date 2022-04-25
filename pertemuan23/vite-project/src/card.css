@@ -1,0 +1,11 @@
+.card{
+    display: flex;
+    justify-content: space-between;
+    float: left;
+    margin: 5px;
+    font-style: oblique;
+    font-family:'Courier New', Courier, monospace
+    background-color:ghostwhite;
+    color:lightseagreen;
+    
+}
