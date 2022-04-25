@@ -1,0 +1,22 @@
+{
+  "contacts": [
+    {
+      "Nama": "Dede Anjar ",
+      "Email": "dedeanjar1@gmail.com",
+      "NoHP": "08572345445",
+      "id": 1
+    },
+    {
+      "Nama": "agung sandi",
+      "Email": "agung@gmail.com",
+      "NoHP": "081920203131",
+      "id": 2
+    },
+    {
+      "Nama": "budi indra",
+      "Email": "budi@gmail.com",
+      "NoHP": "081320212020",
+      "id": 3
+    }
+  ]
+}
