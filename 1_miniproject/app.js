@@ -38,9 +38,9 @@ app.use(flash())
 app.use(cookieParser('secret'))
 app.use(
   session({
-    cookie : {maxAge : 6000},
+    
     secret : 'secret',
-    resave: true,
+    resave: false,
     saveUninitialized : false,
   })
 )
@@ -61,9 +61,7 @@ app.get('/logs', (req, res) => {
   }).catch((err) => res.status(500).json(err));
 });
 
-app.get('/profile', (req,res) => {
-  res.render('profile.ejs')
-})
+
 // app.post('/profile', upload.single('avatar'), function (req, res, next) {
 //   // req.file is the `avatar` file
 //   // req.body will hold the text fields, if there were any
@@ -88,60 +86,70 @@ app.get('/profile', (req,res) => {
 
 
 // halaman Home
-app.get('/', checkAuthenticated, (req, res) => {
-  res.render('index.ejs', {title: "Index, Gate Utama masuk"})
+app.get('/', (req, res) => {
+  
+  res.render('index.ejs', 
+  {title: "Index, Gate Utama masuk",
+    
+  })
 })
 
 
 // go to home page user
-app.get('/home',  (req, res) => {
-  res.render('home.ejs', {title: "HOMEE"})
+app.get('/home', checkNotAuthenticated, (req, res) => {
+  res.render('home.ejs', 
+  {title: "HOMEE", 
+  user: req.user.username,
+  role:req.user.role})
 })
 
-// direct ke login page
-app.get("/login/auth", checkAuthenticated, (req, res) => {
-  
-  // console.log(req.session.flash.error);
-  res.render("login.ejs", {title: 'login user'});
-});
+// go to page user barang masuk
+app.get('/user/barang_masuk', checkNotAuthenticated, (req, res) => {
+  res.render('barang_add.ejs', 
+  {title: "barang masuk", 
+  user: req.user.username,
+  role:req.user.role})
+})
+
+// proses input ke barang masuk
+
+
+// go to page user barang keluar
+app.get('/user/barang_keluar', checkNotAuthenticated, (req, res) => {
+  res.render('barang_out.ejs', 
+  {title: "barang masuk", 
+  user: req.user.username,
+  role:req.user.role})
+})
+
 
 // proses login user
 app.post("/login/auth",
   passport.authenticate("local", {
     
     successRedirect: "/home",
-    failureRedirect: "/login/auth",
+    failureRedirect: "/",
     failureFlash: true
   })
 );
 
 // go to admin page home
-app.get('/admin_page',  (req, res) => {
-  res.render('admin_page.ejs', {title: "Home of Admin"})
+app.get('/admin_page', checkNotAuthenticated, (req, res) => {
+  res.render('admin_page.ejs', {title: "Home of Admin",user: req.user.username,
+  role:req.user.role})
 })
 
-// direct ke login admin page
-app.get('/login_admin', checkAuthenticated, (req, res) => {
-  
-  res.render('login_admin.ejs', {title: "login admin"})
-})
 
-// proses login admin
-app.post("/login_admin",
-  passport.authenticate("local", {
-    successRedirect: "/admin_page",
-    failureRedirect: "/login_admin",
-    failureFlash: true
-  })
-);
 // route to page tambah barang
-app.get('/admin/tambah_barang',  (req,res) =>{
-  res.render('add_barang.ejs', {title:'tambah barang'})
+app.get('/admin/tambah_barang',  checkNotAuthenticated,(req,res) =>{
+  res.render('add_barang.ejs', {title:'tambah barang', user: req.user.username,
+  role:req.user.role})
 })
 
 // proses tambah barang
 app.post('/admin/tambah_barang', async (req, res) => {
-  let {id_barang, nama_barang, jumlah_barang, harga_barang, photo} = req.body
+  let {id_barang, nama_barang, jumlah_barang, harga_barang, id_penginput} = req.body
+  
   
   let errors = []
   // pool.query(`INSERT INTO tb_barang (id_barang, nama_barang, jumlah_barang, harga_barang, photo) VALUES ('${id_barang}', '${nama_barang}', '${jumlah_barang}', '${harga_barang}', '${photo}')`, (err, results) => {
@@ -152,29 +160,32 @@ app.post('/admin/tambah_barang', async (req, res) => {
   //   req.flash("success_msg", "Data berhasil ditambah");
   //   res.redirect('/admin/barang');
   // });
-  console.log(id_barang, nama_barang, jumlah_barang, harga_barang)
-  if(!id_barang || !nama_barang || !jumlah_barang || !harga_barang){
+  
+  if(!id_barang || !nama_barang || !jumlah_barang || !harga_barang || !id_penginput){
      errors.push({message: "silahkan isi semua kolomnya"})
     
   } else {
-    pool.query(`INSERT INTO tb_barang (id_barang, nama_barang, jumlah_barang, harga_barang) VALUES ('${id_barang}', '${nama_barang}', '${jumlah_barang}', '${harga_barang}')`, (err, results) => {  
+    pool.query(`INSERT INTO tb_barang (id_barang, nama_barang, jumlah_barang, harga_barang, id_penginput) VALUES ('${id_barang}', '${nama_barang}', '${jumlah_barang}', '${harga_barang}', '${id_penginput}')`, (err, results) => {  
     //console.log(results.rows);
     req.flash("success_msg", "Data berhasil ditambah");
-    res.redirect('/admin/barang');
+    res.redirect('/barang');
     });
   } 
 })
 
 // route to page tambah user
 app.get('/admin/tambah_user', (req,res) =>{
-  res.render('tambah_user.ejs', {title:'tambah user'})
+  res.render('tambah_user.ejs', {title:'tambah user', 
+  //user: req.user.username,
+  // role: req.user.role
+})
 })
 
 
 //register admin prosees
-app.post('/admin/tambah_user', async (req, res) => {
-  let {username, name, email, password, password2} = req.body
-  console.log({username, name, email, password, password2})
+app.post('/admin/tambah_user', checkNotAuthenticated, async (req, res) => {
+  let {username, name, email, password, password2, role} = req.body
+ 
   let errors = []
   if(!username || !name || !email || !password || !password2){
      errors.push({message: "silahkan isi semua kolomnya"})
@@ -189,7 +200,7 @@ app.post('/admin/tambah_user', async (req, res) => {
     res.render('admin_register.ejs', {errors, title:'proses register'})
   } else {
     let hashedPassword = await bcrypt.hash(password, 10)
-    console.log(hashedPassword)
+    
 
     pool.query(`select * from tb_user where email = $1`, 
     [email], (err, results)=> {
@@ -203,17 +214,17 @@ app.post('/admin/tambah_user', async (req, res) => {
         });
       } else {
         pool.query(
-          `INSERT INTO tb_user (username, name, email, password)
-              VALUES ($1, $2, $3, $4)
+          `INSERT INTO tb_user (username, name, email, password, role)
+              VALUES ('${username}', '${name}', '${email}', '${hashedPassword}','${role}')
               `,
-          [username,name, email, hashedPassword],
+          
           (err, results) => {
             if (err) {
               throw err;
             }
             console.log(results.rows);
             req.flash("success_msg", "You are now registered. Please log in");
-            res.redirect('/login_admin');
+            res.redirect('/admin/list_user');
           }
         );
       } 
@@ -221,17 +232,20 @@ app.post('/admin/tambah_user', async (req, res) => {
   }
 })
 
-// halaman informasi user
-app.get('/informasi_user', checkAuthenticated, async (req, res) => {
+// halaman informasi user personal
+app.get('/informasi_user', checkNotAuthenticated, async (req, res) => {
   try {
       const username = req.body
-      const {rows : user } = await pool.query(`SELECT * FROM tb_user` )
-      console.log(username)
-      console.log(user)
+      
+      const {rows : users } = await pool.query(`SELECT * FROM tb_user ` )
       res.render ('informasi_user.ejs', {
         title: 'informasi user', 
-        user,
-        msg: req.flash('msg')
+        users,
+        msg: req.flash('msg'), 
+        user: req.user.username,
+        role:req.user.role,
+        email: req.user.email,
+        name : req.user.name
       })
       
   }catch (err) {
@@ -239,14 +253,21 @@ app.get('/informasi_user', checkAuthenticated, async (req, res) => {
   }
 })
 
+
+
 // memangggil view list dari database user
-app.get("/barang", checkAuthenticated, async (req, res) => {
+app.get("/barang", checkNotAuthenticated, async (req, res) => {
   try {
-    const {rows : barang } = await pool.query(`select * from tb_barang`)
+    const {rows : barang } = await pool.query(`SELECT tb_barang.id_barang, tb_barang.nama_barang, tb_barang.jumlah_barang, tb_user.username, tb_user.name
+    FROM tb_barang INNER JOIN tb_user ON tb_barang.id_penginput = tb_user.username;
+    `)
       res.render ('barang.ejs', {
           barang,
           title: "data  semua barang ",
-          msg: req.flash('msg')   
+          msg: req.flash('msg'),
+          user: req.user.username,
+          role:req.user.role
+          
       })
   }
   catch (error){
@@ -254,7 +275,8 @@ app.get("/barang", checkAuthenticated, async (req, res) => {
   }
 })
 
-app.get("/barang/:name", checkAuthenticated, async (req, res) => {
+// proses untuk mendapatkan detail pada list barang
+app.get("/barang/:name", checkNotAuthenticated, async (req, res) => {
   try {
     const name = (req.params.name)
     const {rows : barang }  = await pool.query(`SELECT *  FROM tb_barang where id_barang = '${name}'`)
@@ -262,7 +284,9 @@ app.get("/barang/:name", checkAuthenticated, async (req, res) => {
       detailBarang => 
       res.render('details', {
       title: "page detail data ", 
-      detailBarang
+      detailBarang,
+      user: req.user.username,
+      role:req.user.role
       })
       )
   }
@@ -271,15 +295,19 @@ app.get("/barang/:name", checkAuthenticated, async (req, res) => {
   }   
 })
 
-//detail barang admn
-// memangggil view list dari database user
-app.get("/admin/barang", checkAuthenticated, async (req, res) => {
+
+
+// memangggil view list user dari database user
+app.get("/admin/list_user", checkNotAuthenticated, async (req, res) => {
   try {
-    const {rows : barang } = await pool.query(`select * from tb_barang`)
-      res.render ('admin_barang.ejs', {
-          barang,
-          title: "data  semua barang ",
-          msg: req.flash('msg')   
+    const {rows : list_user } = await pool.query(`select * from tb_user`)
+      res.render ('list_user.ejs', {
+          list_user,
+          title: "data  semua member ",
+          msg: req.flash('msg'),
+          user: req.user.username,
+          role:req.user.role
+          
       })
   }
   catch (error){
@@ -287,7 +315,47 @@ app.get("/admin/barang", checkAuthenticated, async (req, res) => {
   }
 })
 
-app.get("/admin/barang/:name", checkAuthenticated, async (req, res) => {
+// prose untuk mendapatkan detail dari list user
+app.get("/admin/list_user/:username", checkNotAuthenticated, async (req, res) => {
+  try {
+    const username = (req.params.username)
+    const {rows : list_user }  = await pool.query(`SELECT *  FROM tb_user where username = '${username}'`)
+    list_user.map(
+      detailUser => 
+      res.render('details_user.ejs', {
+      title: "page detail users ", 
+      detailUser,
+      user: req.user.username,
+      role:req.user.role
+      })
+      )
+  }
+  catch (error){
+      console.error("salah")
+  }   
+})
+
+
+
+//detail barang admn
+// memangggil view list dari database user
+app.get("/admin/barang", checkNotAuthenticated, async (req, res) => {
+  try {
+    const {rows : barang } = await pool.query(`select * from tb_barang`)
+      res.render ('admin_barang.ejs', {
+          barang,
+          title: "data  semua barang ",
+          msg: req.flash('msg'), 
+          user: req.user.username,
+          role:req.user.role   
+      })
+  }
+  catch (error){
+      console.error("salah")
+  }
+})
+
+app.get("/admin/barang/:name", checkNotAuthenticated, async (req, res) => {
   try {
     const name = (req.params.name)
     const {rows : barang }  = await pool.query(`SELECT *  FROM tb_barang where id_barang = '${name}'`)
@@ -304,6 +372,54 @@ app.get("/admin/barang/:name", checkAuthenticated, async (req, res) => {
   }   
 })
 
+//Proses Update user
+app.post('/admin/list_user/update', [
+  body('name').custom(async(value, {req}) => {
+      const duplikat = await pool.query(`SELECT username FROM tb_user WHERE username = '${value}'`)
+      if(!value === req.body.oldUsername && duplikat) {
+          throw new Error('Nama contact sudah digunakan')
+      }
+      return true
+  }),
+  
+], 
+  async (req, res) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+      res.render('edit_user', {
+          title : 'Form Ubah Contact',
+          
+          errors : errors.array(),
+          userEdit : req.body,
+      })
+  }
+  else {
+      const{username, name, email, password, role} = req.body
+      await pool.query(`UPDATE tb_user SET username = '${username}', name = '${name}', email = '${email}' , role= '${role}' where username = '${req.body.oldUsername}' `)
+      req.flash('msg', 'Data contact berhasil di Update')
+      res.redirect('/contact')
+  }
+})
+
+
+// Untuk route Edit/update user by username
+app.get('/admin/user_edit/:username', async (req, res) => {
+  try{
+      const username = (req.params.username)
+      const {rows : user} = await pool.query(`SELECT * FROM tb_user WHERE name = '${username}'`)
+      user.map(userEdit => {
+          res.render('edit_user', {
+              title : "Page List Detail update",
+              userEdit
+          })
+      })
+  }
+  catch (err) {
+      console.error(err.message)
+  }
+  
+})
+
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -316,7 +432,7 @@ function checkNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect("/login/auth");
+  res.redirect("/");
 }
 
 

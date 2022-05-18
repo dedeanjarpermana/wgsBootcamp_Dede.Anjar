@@ -1,13 +1,57 @@
 <%- include('layout/header') %>
+<%- include('layout/nav') %>
 
 
-selamat datang, user di admin page 
+selamat datang, ....> di admin page 
 <nav class="navbar navbar-light bg-light">
     <form class="form-inline">
       <button class="btn btn-outline-success" type="button"><a href="/admin/tambah_barang"> Input Barang</a></button>
-      <button class="btn btn-outline-success" type="button"><a href="/admin/tambah_user">Tambah User</a></button>
       <button class="btn btn-outline-success" type="button"><a href="/admin/barang">List Barang</a></button>
     </form>
 </nav>
+<div class="pageutama" style="width: 100%;">
+  <h3> List Barang:  </h2>
+
+    <% if (msg.length !== 0) { %>
+      <div class="alert alert-info" role="alert">
+        <%= msg %> 
+      </div>
+    <% } %>      
+        <form  class="container mt-3" style="width: 30%;" method="post" action="/contact/deletemultiple">
+          <table class="table table-hover">
+              <thead>
+                <tr>
+                  
+                  <th scope="col"> No</th>
+                  <th scope="col">ID_Barang</th>
+                  <th scope="col">Nama Barang</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <% barang.forEach((barang,i)=> { (i++) %>
+                  <tr>
+                      
+                      <td> <%= i++ %> </td>
+                      <td> <%= barang.id_barang %> </td>
+                      <td> <%= barang.nama_barang %> </td>
+                    
+                      <td>
+                        <a href="/barang/<%= barang.id_barang %>" class="btn btn-outline-dark">Details</a> <!--page contact di web -->
+                    </td>
+                  </tr>
+              </tr>
+      <%}); %> 
+          </tr>
+          
+         
+          
+        </form>
+          </tbody>
+        </table>
+  
+</div>
     
+
+<%- include('layout/footer') %>
     

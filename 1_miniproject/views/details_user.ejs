@@ -1,0 +1,24 @@
+<%- include('layout/header') %>
+
+
+
+<div class="card bg-1" style="width: 150px height:40px; margin: 10px 0; background-color: black; color:white">
+    <div class="card-body border border-2 shadow">
+      <h3 class="card-title" style="color:white">username: <%= detailUser.username%></h3> <br>
+      <h3 class="card-subtitle mb-2 text-white">nama: <%= detailUser.name%></h3> <br>
+      <h3 class="card-text" style="color:white"> email:  <%= detailUser.email%></h3> <br>
+      <h3 class="card-text" style="color:white"> role:  <%= role%></h3> <br>
+      <h3 class="card-text" style="color:white"> photo: </h3> <br>
+      <h3 class="card-text" style="color:white"> hobi: </h3> <br>
+      <a href="/admin/user_edit/<%= detailUser.username %>" class="btn btn-outline-light" style= "color: red" > Edit </a>
+      <a href="/barang/delete/<%= detailUser.username %> " class="btn btn-outline-light" style= "color: red" onclick="return confirm('apakah yakin anda akan menghapus data ini?')"> Delete </a>
+      <a href="/admin/list_user" class="btn btn-outline-light" style= "color:white">kembali ke list User </a>
+      
+    </div>
+</div>
+
+<div class="pageutama" style="width: 100%;">
+
+</div>
+
+

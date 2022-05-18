@@ -1,18 +1,11 @@
 <%- include('layout/header') %>
 <%- include('layout/nav') %>
 
-<nav class="navbar navbar-light bg-light">
-  
-</nav>
 
-
-<div>
-  <a href="/user/barang_masuk" class="btn btn-outline-dark">Barang Masuk</a>
-  <a href="/user/barang_keluar" class="btn btn-outline-dark">Barang Keluar</a>
-</div>
 
 <div class="pageutama" style="width: 100%;">
-    <h3> List Barang:  </h2>
+  <a href="/home" class="btn btn-outline-dark">Home Admin</a> 
+    <h3> List User:  </h2>
 
       <% if (msg.length !== 0) { %>
         <div class="alert alert-info" role="alert">
@@ -25,25 +18,21 @@
                   <tr>
                     
                     <th scope="col"> No</th>
-                    <th scope="col">ID_Barang</th>
-                    <th scope="col">Nama Barang</th>
-                    <th scope="col">Jumlah Barang</th>
-                    <th scope="col">Penginput</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                    <% barang.forEach((barang,i)=> { (i++) %>
+                    <% list_user.forEach((list_user,i)=> { (i++) %>
                     <tr>
                         
                         <td> <%= i++ %> </td>
-                        <td> <%= barang.id_barang %> </td>
-                        <td> <%= barang.nama_barang %> </td>
-                        <td> <%= barang.jumlah_barang %> </td>
-                        <td> <%= barang.username %> </td>
+                        <td> <%= list_user.username %> </td>
+                        <td> <%= list_user.email %> </td>
                       
                         <td>
-                          <a href="/barang/<%= barang.id_barang %>" class="btn btn-outline-dark">Details</a> <!--page contact di web -->
+                          <a href="/admin/list_user/<%= list_user.username %>" class="btn btn-outline-dark">Details</a> <!--page contact di web -->
                       </td>
                     </tr>
                 </tr>

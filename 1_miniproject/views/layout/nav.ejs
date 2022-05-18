@@ -1,7 +1,28 @@
 
-<div class="menu" style="width: 100%;">
 
 
+<div class="sidebar"></div>
+<div class="sidebar">
+  <header>
+  
+  </header>
+  <ul>
+  <li><a href='/home'><i class="fas fa-laptop"></i>Dashboard</a></li>
+  <li><a href='/informasi_user'><i class="fas fa-users"></i>Users</a></li>
+  <!-- <li><a href='/informasi_user'></a><i class="fas fa-print"></i>Transaksi</a></li> -->
+  <li><a href='/barang'><i class="fas fa-chart-line"></i>Barang</a></li>
+  <%  if (role == 'admin') { %> 
+  <li><a href='/admin/tambah_user'></a><i class="far fa-calendar-alt"></i>Tambah user</a></li>
+  <li><a href='/admin/list_user'></a><i class="fas fa-users"></i>List Users</a></li>
+  <% } %> 
+  <li><a href='/logout'><i class="fas fa-power-off"></i>logout</a></li>
+  <!-- <li><a href="dashboard.php"><i class="fas fa-id-card"></i>Contact Us</a></li> -->
+  </ul>
+  </div>
+
+  
+
+  <!-- <div class="menu" style="width: 100%;">
 <label> 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         
@@ -16,29 +37,39 @@
             <li class="nav-item">
               <a class="nav-link" href='/informasi_user'><i class="fas fa-user-circle"></i>Informasi user</a>
             </li>
-            
             <li class="nav-item">
               <a class="nav-link" href='/barang'><i class="fas fa-desktop"></i>Barang</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href='/login_admin'><i class="fa-regular fa-arrow-up-left-from-circle"></i>log In Admin</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href='/logout'><i class="fas fa-power-off"></i>logout</a>
-            </li>
+            <%  if (role == 'admin') { %> 
+                <li class="nav-item">
+                  <a class="nav-link" href='/admin/tambah_user'><i class="fa-solid fa-circle-plus"></i>Tambah User</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href='/admin/list_user'><i class="fa-solid fa-users"></i>List User</a>
+                </li>
+          <% } %> 
+          <li class="nav-item">
+            <a class="nav-link" href='/logout'><i class="fas fa-power-off"></i>logout</a>
+          </li>
           </ul>
         </div>
       </nav>
 </label>
-<!-- <h3>
-    <ul> 
-        <li><a href='/'>home</a></li>
-        <li> <a href='/about'>about </a> </li>
-        <li> <a href='/contact'>contact</a> </li>
 
-    </ul>
-</h3> -->
 
-</label>
+ -->
+
 
 </div>
+
+<section>
+  <div class="conten">
+  <h1>Apakabar kalian semua</h1>
+  <h3>Selamat Berjumpa lagi ditutorial yang </h3>
+  </div>
+  
+  </section>
+
+  <container class="content">
+
+  </container>

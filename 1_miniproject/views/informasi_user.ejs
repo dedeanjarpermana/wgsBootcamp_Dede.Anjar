@@ -11,18 +11,18 @@
             <div class="col text-center">
             
             <div class="display-4">Informasi Data Pekerja</div>
-            <% user.forEach((user,i)=> { (i++) %>
+            
                 <tr>
                     
                     
-                    <td> <h2> Username: <%= user.username %> </h2></td>
-                    <td> <h2> Nama: <%= user.name %> </h2></td>
-                    <td> <h2> email: <%= user.email %> </h2></td>
+
+                    <td> <h2> Username: <%= user %> </h2></td>
+                    <td> <h2> Nama: <%= name %> </h2></td>
+                    <td> <h2> email: <%= email %> </h2></td>
+                    <td> <h2> role : <%= role %> </h2></td>
 
                   
                 </tr>
-    <%}); %> 
-            
             
         </div>
     </div>
