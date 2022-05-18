@@ -1,0 +1,91 @@
+.header{
+    position: fixed;
+    width: 100%;
+    background-color: #012424;
+    color: white;
+    height: 70px;
+  }
+  .header .tombol{
+    float: right;
+    right: 10px;
+    bottom: 7px;
+    background-color: #e0ebeb ;
+    display: flex;
+    padding: 5px;
+    margin-right: 15px;
+    border-radius: 5px;
+    color: black;
+    text-decoration: none;
+  }
+  .tombol:hover {
+    background-color: #008B8B;
+  }
+
+
+
+  
+  #cek{
+    display: none;
+  }
+  label #btn, label #close{
+    position: fixed;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  label #btn{
+    left: 240px;
+    top: 30px;
+    font-size: 20px;
+    color: yellow;
+    padding: 6px 10px;
+    transition: all .0s;
+  }
+  label #close{
+    z-index: 1111;
+    left: -250px;
+    top: 25px;
+    font-size: 20px;
+    color: white;
+    padding: 6px 10px;
+    transition: all .0s ease;
+  }
+  #cek:checked ~ .sidebar{
+    left: 0;
+  }
+  #cek:checked ~ label #btn{
+    left: 250px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  #cek:checked ~ label #close{
+    left: 250px;
+  }
+  #cek:checked ~ section{
+    margin-left: 250px;
+  }
+  section{
+    padding-top: 70px;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    transition: all .5s;
+  }
+  .conten{
+    padding: 20px;
+  }
+
+ .gambar {
+   width: 20px;
+   height: 20px;
+   /* border: 1px solid whitesmoke; */
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   margin-top: 10px;
+   margin-left: 100px;
+   
+ }
+
+.h3{
+  color:whitesmoke
+}
