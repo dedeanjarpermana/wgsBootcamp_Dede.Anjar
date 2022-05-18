@@ -1,0 +1,35 @@
+.table {
+    /* margin-top: 10px; */
+    margin-left: 300px;
+    /* width: 10px; */
+    background-color: #FFFFFF;
+    border-collapse: collapse;
+    border-width: 1px;
+    border-color: #7ea8f8;
+    border-style: dotted;
+    color: #000000;
+  }
+  h3{
+      color:goldenrod;
+  }
+  
+  .table td, .table th {
+    margin-left: 100px;
+    border-width: 1px;
+    border-color: #7ea8f8;
+    border-style: dashed;
+    /* padding: 5px; */
+  }
+  
+  .table thead {
+    background-color: #7ea8f8;
+  }
+
+  button{
+    width: 30px;
+
+  }
+  button:hover{
+    background-color: green;
+    color:black;
+  }
